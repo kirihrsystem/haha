@@ -1,0 +1,16 @@
+{
+  "projects": {
+    "default": "athletic-brook-mmbw7"
+  },
+  "targets": {
+    "athletic-brook-mmbw7": {
+      "firestore": {
+        "main": [
+          "ai-studio-kirihr-4016f250-0b4e-4cc5-abd0-7ee3d8581571"
+        ]
+      }
+    }
+  }
+}
+
+

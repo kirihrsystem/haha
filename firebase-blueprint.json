@@ -1,0 +1,203 @@
+{
+  "entities": {
+    "Staff": {
+      "title": "Staff",
+      "description": "User profile for staff and admins.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "nameKh": { "type": "string" },
+        "passcode": { "type": "string" },
+        "role": { "type": "string", "enum": ["admin", "staff"] },
+        "avatar": { "type": "string" },
+        "hourlyRate": { "type": "number" },
+        "monthlySalary": { "type": "number" },
+        "branch": { "type": "string" },
+        "shiftStart": { "type": "string" },
+        "shiftEnd": { "type": "string" },
+        "bonus": { "type": "number" },
+        "commissionThreshold": { "type": "number" },
+        "commissionRate": { "type": "number" },
+        "nationalIdCardUrl": { "type": "string" },
+        "telegramChatId": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "passcode", "role", "hourlyRate", "createdAt"]
+    },
+    "Log": {
+      "title": "Log",
+      "description": "Attendance and sales log for a staff member.",
+      "type": "object",
+      "properties": {
+        "staffId": { "type": "string" },
+        "date": { "type": "string" },
+        "timeIn": { "type": "string" },
+        "timeOut": { "type": "string" },
+        "late": { "type": "boolean" },
+        "earlyLeave": { "type": "boolean" },
+        "regularHours": { "type": "number" },
+        "overtimeHours": { "type": "number" },
+        "cupsSold": { "type": "number" },
+        "salesAmount": { "type": "number" },
+        "commissionEarned": { "type": "number" },
+        "dailySalary": { "type": "number" },
+        "totalEarnings": { "type": "number" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" },
+        "status": { "type": "string", "enum": ["active", "checked_out"] }
+      },
+      "required": ["staffId", "date", "timeIn", "late", "earlyLeave", "status"]
+    },
+    "Leave": {
+      "title": "Leave",
+      "description": "Permission or leave request.",
+      "type": "object",
+      "properties": {
+        "staffId": { "type": "string" },
+        "date": { "type": "string" },
+        "type": { "type": "string", "enum": ["day_off", "permission"] },
+        "reason": { "type": "string" },
+        "proofUrl": { "type": "string" },
+        "status": { "type": "string", "enum": ["pending", "approved", "rejected"] },
+        "adminComment": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["staffId", "date", "type", "reason", "status", "createdAt"]
+    },
+    "Bonus": {
+      "title": "Bonus",
+      "description": "Monthly bonus assigned to staff by admin.",
+      "type": "object",
+      "properties": {
+        "staffId": { "type": "string" },
+        "month": { "type": "string" },
+        "amount": { "type": "number" },
+        "note": { "type": "string" },
+        "companyId": { "type": "string" },
+        "payrollStatus": { "type": "string", "enum": ["draft", "published", "pending_review", "confirmed", "paid"] },
+        "deductionAmount": { "type": "number" },
+        "deductionNote": { "type": "string" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["staffId", "month"]
+    },
+    "CompanySettings": {
+      "title": "CompanySettings",
+      "description": "Company configuration and Telegram bot integration settings.",
+      "type": "object",
+      "properties": {
+        "companyId": { "type": "string" },
+        "exchangeRate": { "type": "number" },
+        "defaultHourlyRate": { "type": "number" },
+        "defaultOvertimeRate": { "type": "number" },
+        "overtimeRateType": { "type": "string", "enum": ["multiplier", "fixed"] },
+        "overtimeRateValue": { "type": "number" },
+        "currencyDisplay": { "type": "string", "enum": ["USD", "KHR", "BOTH"] },
+        "telegramChatId": { "type": "string" },
+        "telegramAdminChatId": { "type": "string" }
+      },
+      "required": ["companyId", "exchangeRate", "defaultHourlyRate", "defaultOvertimeRate", "currencyDisplay"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "In-app notifications for staff attendance and administrative alerts.",
+      "type": "object",
+      "properties": {
+        "companyId": { "type": "string" },
+        "type": { "type": "string", "enum": ["attendance", "leave_status", "leave_pending", "payroll"] },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "read": { "type": "boolean" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["companyId", "type", "title", "message", "read", "createdAt"]
+    },
+    "DirectMessage": {
+      "title": "DirectMessage",
+      "description": "Direct inquiries and contact messages sent from the landing page.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "message": { "type": "string" },
+        "status": { "type": "string", "enum": ["unread", "read", "replied", "archived"] },
+        "createdAt": { "type": "string" },
+        "repliedAt": { "type": "string" },
+        "notes": { "type": "string" }
+      },
+      "required": ["name", "email", "message", "status", "createdAt"]
+    },
+    "TelegramKnowledge": {
+      "title": "TelegramKnowledge",
+      "description": "Custom Q&A and FAQs for training the Telegram AI Support bot.",
+      "type": "object",
+      "properties": {
+        "category": { "type": "string" },
+        "questionEn": { "type": "string" },
+        "questionKh": { "type": "string" },
+        "answerEn": { "type": "string" },
+        "answerKh": { "type": "string" },
+        "active": { "type": "boolean" },
+        "createdAt": { "type": "string" },
+        "updatedAt": { "type": "string" }
+      },
+      "required": ["category", "questionEn", "answerEn", "active", "createdAt"]
+    },
+    "Testimonial": {
+      "title": "Testimonial",
+      "description": "Customer testimonials displayed on the landing page.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "nameKh": { "type": "string" },
+        "title": { "type": "string" },
+        "titleKh": { "type": "string" },
+        "initial": { "type": "string" },
+        "quote": { "type": "string" },
+        "quoteKh": { "type": "string" },
+        "color": { "type": "string" },
+        "row": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["name", "title", "initial", "quote", "color", "row", "createdAt"]
+    }
+  },
+  "firestore": {
+    "staff": {
+      "schema": { "$ref": "#/entities/Staff" },
+      "description": "Staff configuration."
+    },
+    "logs": {
+      "schema": { "$ref": "#/entities/Log" },
+      "description": "Punch-in/out and sales logs."
+    },
+    "permissions": {
+      "schema": { "$ref": "#/entities/Leave" },
+      "description": "Leave permissions."
+    },
+    "bonuses": {
+      "schema": { "$ref": "#/entities/Bonus" },
+      "description": "Monthly bonuses for staff members."
+    },
+    "companies_settings": {
+      "schema": { "$ref": "#/entities/CompanySettings" },
+      "description": "Company settings and integrations."
+    },
+    "notifications": {
+      "schema": { "$ref": "#/entities/Notification" },
+      "description": "System and user notifications."
+    },
+    "direct_messages": {
+      "schema": { "$ref": "#/entities/DirectMessage" },
+      "description": "Landing page contact form direct messages."
+    },
+    "telegram_knowledge": {
+      "schema": { "$ref": "#/entities/TelegramKnowledge" },
+      "description": "Telegram bot training FAQs and knowledge base."
+    },
+    "testimonials": {
+      "schema": { "$ref": "#/entities/Testimonial" },
+      "description": "Customer testimonials for the landing page."
+    }
+  }
+}
